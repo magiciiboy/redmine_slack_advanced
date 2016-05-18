@@ -44,7 +44,7 @@ class SlackListener < Redmine::Hook::Listener
 		channel = channel_for_project issue.project
 		url = url_for_project issue.project
 
-		return unless channel and url and Setting.plugin_redmine_slack[:post_updates] == '1' and issue.tracker.name == Setting.plugin_redmine_slack[:issue_type]
+		return unless channel and url and Setting.plugin_redmine_slack[:post_updates] == '1' and Setting.plugin_redmine_slack[:issue_type].include? issue.tracker.name
 		return if issue.is_private?
 
 		msg = "[#{escape issue.project}] #{escape journal.user.to_s} updated <#{object_url issue}|#{escape issue}>#{mentions journal.notes}"
